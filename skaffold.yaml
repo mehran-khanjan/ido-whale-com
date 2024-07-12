@@ -1,0 +1,30 @@
+apiVersion: skaffold/v2beta12
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./dev-ops/k8-configs/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: mehrankhanjan/idowhale-front
+      context: front-end
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.tsx"
+            dest: .
+          - src: "src/**/*.ts"
+            dest: .
+          - src: "src/**/*.css"
+            dest: .
+    - image: mehrankhanjan/idowhale-back
+      context: back-end
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .

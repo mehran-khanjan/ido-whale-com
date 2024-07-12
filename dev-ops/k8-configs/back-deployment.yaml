@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: back-end
+  template:
+    metadata:
+      labels:
+        component: back-end
+    spec:
+      containers:
+        - name: back-end
+          image: mehrankhanjan/idowhale-back
+          ports:
+            - containerPort: 3001
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-cluster-ip-service
+spec:
+  type: ClusterIP
+  selector:
+    component: back-end
+  ports:
+    - port: 3001
+      targetPort: 3001
