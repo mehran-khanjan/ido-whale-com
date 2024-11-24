@@ -1,0 +1,15 @@
+.custom-main-color {
+    color: #45f882;
+}
+
+.custom-sub-title {
+    margin: 0 0 19px;
+    line-height: 1;
+    font-family: var(--tg-body-font-family);
+    font-weight: var(--tg-fw-bold);
+    letter-spacing: 4px;
+    font-size: 20px;
+    color: var(--tg-theme-primary);
+    position: relative;
+    padding: 17px 0 17px 20px;
+}
