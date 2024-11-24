@@ -262,8 +262,8 @@ const SingleLaunchpad: NextPageWithLayout = () => {
 
                                 <div className="shop__widget">
                                     <h4 className="shop__widget-title">ADVERTISEMENT</h4>
-                                    <div class="shop__widget-inner">
-                                        <div class="tournament__advertisement">
+                                    <div  className="shop__widget-inner">
+                                        <div className="tournament__advertisement">
                                             <a href="#"><img src="assets/img/others/tournament_ad.jpg" alt="img"/></a>
                                         </div>
                                     </div>
