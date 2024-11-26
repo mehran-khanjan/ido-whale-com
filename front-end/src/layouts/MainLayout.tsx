@@ -9,6 +9,8 @@ function MainLayout({children}: any) {
 
             <CustomHeader/>
 
+            <appkit-button />
+
             {children}
 
             <CustomFooter/>

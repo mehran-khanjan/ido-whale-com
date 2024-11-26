@@ -6,6 +6,7 @@ import {NextPageWithLayout} from "@/pages/_app";
 import HomeHero from "@/components/user/home/HomeHero";
 import LaunchpadsList from "@/components/user/launchpads/LaunchpadsList";
 import SecondStyleLaunchpadList from "@/components/user/launchpads/SecondStyleLaunchpadList";
+import RoadmapComponent from "@/components/user/about/RoadmapComponent";
 
 
 const Home: NextPageWithLayout = () => {
@@ -18,6 +19,8 @@ const Home: NextPageWithLayout = () => {
             <LaunchpadsList/>
 
             <SecondStyleLaunchpadList/>
+
+            <RoadmapComponent/>
 
         </>
     );

@@ -1,12 +1,9 @@
-import "@/assets/css/plugins.css";
-import "@/assets/css/main.css";
-import "@/assets/css/custom.css";
-import type {AppProps} from "next/app";
-import {NextPage} from "next";
-import {ReactElement, ReactNode} from "react";
+'use client'
+
 import {createAppKit} from '@reown/appkit/react'
 import {EthersAdapter} from '@reown/appkit-adapter-ethers'
 import {mainnet, bsc, bscTestnet} from '@reown/appkit/networks'
+import {type ReactNode} from 'react';
 
 // 1. project id:
 const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID;
@@ -26,27 +23,19 @@ const metadata = {
 createAppKit({
     adapters: [new EthersAdapter()],
     metadata,
-    networks: [mainnet],
+    networks: [mainnet, bsc, bscTestnet],
     projectId,
     features: {
         analytics: true
     }
-})
+} as any)
 
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-    getLayout?: (page: ReactElement) => ReactNode
+const ContextProvider = ({children}: { children: ReactNode }) => {
+    return (
+        <>
+            {children}
+        </>
+    )
 }
 
-type AppPropsWithLayout = AppProps & {
-    Component: NextPageWithLayout
-}
-
-export default function App({Component, pageProps}: AppPropsWithLayout) {
-    const getLayout = Component.getLayout ?? ((page) => page)
-
-    return getLayout(
-        <div className="main--area">
-            <Component {...pageProps} />
-        </div>
-    );
-}
+export default ContextProvider;
