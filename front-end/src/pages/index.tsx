@@ -1,6 +1,6 @@
 import Head from "next/head";
 import CustomHead from "@/components/shared/CustomHead";
-import {ReactElement} from "react";
+import React, {ReactElement} from "react";
 import MainLayout from "@/layouts/MainLayout";
 import {NextPageWithLayout} from "@/pages/_app";
 import HomeHero from "@/components/user/home/HomeHero";

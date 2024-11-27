@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import UserMenu from "@/components/shared/UserMenu";
+import {ConnectKitButton} from "connectkit";
+import Link from "next/link";
 
 const CustomHeader: React.FC = () => {
     const [mobileMenu, setMobileMenu] = useState('');
@@ -25,7 +27,10 @@ const CustomHeader: React.FC = () => {
                                 <div className="tgmenu__wrap">
                                     <nav className="tgmenu__nav">
                                         <div className="logo">
-                                            <a href="index.html"><img src="assets/img/logo/logo.png" alt="Logo"/></a>
+                                            <Link href="/">
+                                                {/*<img src="assets/img/logo/logo.png" alt="Logo"/>*/}
+                                                IDO Whale
+                                            </Link>
                                         </div>
                                         <div className="tgmenu__navbar-wrap tgmenu__main-menu d-none d-xl-flex">
 
@@ -49,6 +54,9 @@ const CustomHeader: React.FC = () => {
                                                         {/*<i className="flaticon-edit"></i>*/}
                                                         Connect Wallet
                                                     </a>
+
+                                                    <ConnectKitButton />
+
                                                 </li>
                                                 {/*<li className="side-toggle-icon">*/}
                                                 {/*    <span></span>*/}
@@ -72,14 +80,17 @@ const CustomHeader: React.FC = () => {
                                 <i className="flaticon-swords-in-cross-arrangement"></i>
                             </div>
                             <div className="nav-logo">
-                                <a href="index.html"><img src="assets/img/logo/logo.png" alt="Logo"/></a>
+                                <Link href="/">
+                                    {/*<img src="assets/img/logo/logo.png" alt="Logo"/>*/}
+                                    IDO Whale
+                                </Link>
                             </div>
-                            <div className="tgmobile__search">
-                                <form action="#">
-                                    <input type="text" placeholder="Search here..."/>
-                                    <button><i className="flaticon-loupe"></i></button>
-                                </form>
-                            </div>
+                            {/*<div className="tgmobile__search">*/}
+                            {/*    <form action="#">*/}
+                            {/*        <input type="text" placeholder="Search here..."/>*/}
+                            {/*        <button><i className="flaticon-loupe"></i></button>*/}
+                            {/*    </form>*/}
+                            {/*</div>*/}
                             <div className="tgmobile__menu-outer">
                                 <UserMenu handleMobileMenuClick={handleMobileMenuClick} isMobile={true}/>
                             </div>

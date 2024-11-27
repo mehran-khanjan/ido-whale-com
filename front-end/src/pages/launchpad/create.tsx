@@ -3,7 +3,7 @@ import {NextPageWithLayout} from "@/pages/_app";
 import MainLayout from "@/layouts/MainLayout";
 import CustomHead from "@/components/shared/CustomHead";
 import CreateLaunchpadGuide from "@/components/user/launchpads/CreateLaunchpadGuide";
-import CreateLaunchpadForm from "@/components/user/launchpads/CreateLaunchpadForm";
+import CreateLaunchpadFormStepOne from "@/components/user/launchpads/CreateLaunchpadFormStepOne";
 import CreateLaunchpadFormStepTwo from "@/components/user/launchpads/CreateLaunchpadFormStepTwo";
 import CreateLaunchpadHistory from "@/components/user/launchpads/CreateLaunchpadHistory";
 
@@ -16,7 +16,7 @@ const LaunchpadCreate: NextPageWithLayout = () => {
 
             <CreateLaunchpadHistory/>
 
-            <CreateLaunchpadForm/>
+            <CreateLaunchpadFormStepOne/>
 
             <CreateLaunchpadFormStepTwo/>
 

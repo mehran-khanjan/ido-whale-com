@@ -3,8 +3,38 @@ import {NextPageWithLayout} from "@/pages/_app";
 import MainLayout from "@/layouts/MainLayout";
 import HomeHero from "@/components/user/home/HomeHero";
 import CustomHead from "@/components/shared/CustomHead";
+import * as Yup from "yup";
+import {Field, Form, Formik, FormikHelpers} from "formik";
+import {parseEther} from "viem";
+import {abi} from '../../../assets/abi/Launchpad.json';
+import {useWriteContract} from "wagmi";
+
+interface FormValues {
+    coinValue: string;
+}
+
+const formSchema = Yup.object().shape({
+    coinValue: Yup
+        .number()
+        .typeError('Coin value must be a number')
+        .required('Required'),
+});
 
 const SingleLaunchpad: NextPageWithLayout = () => {
+    const {data: hash, writeContract, isPending, error} = useWriteContract();
+
+    const handleFormSubmit = (v: FormValues, s: FormikHelpers<FormValues>) => {
+        console.log('v', v);
+
+        // writeContract({
+        //     address: process.env.NEXT_PUBLIC_FACTORY_CONTRACT_BSC_TESTNET,
+        //     abi,
+        //     functionName: 'swap',
+        //     args: [1, parseEther(`${v.coinValue}`)],
+        //     value: parseEther('1')
+        // })
+    }
+
     return (
         <>
             <CustomHead title={'Launchpads Single'}/>
@@ -41,42 +71,42 @@ const SingleLaunchpad: NextPageWithLayout = () => {
                                 <div className="my-5">
                                     <table className="table table-responsive" style={{color: '#adb0bc'}}>
                                         <thead>
-                                            <tr>
-                                                <th>a</th>
-                                                <th>b</th>
-                                            </tr>
+                                        <tr>
+                                            <th>a</th>
+                                            <th>b</th>
+                                        </tr>
                                         </thead>
 
                                         <tbody>
-                                            <tr>
-                                                <td>Network</td>
-                                                <td>Binance Chain</td>
-                                            </tr>
+                                        <tr>
+                                            <td>Network</td>
+                                            <td>Binance Chain</td>
+                                        </tr>
 
-                                            <tr>
-                                                <td>Pair</td>
-                                                <td>BTC / USDT</td>
-                                            </tr>
+                                        <tr>
+                                            <td>Pair</td>
+                                            <td>BTC / USDT</td>
+                                        </tr>
 
-                                            <tr>
-                                                <td>Price</td>
-                                                <td>1BTC = 1000 BNB</td>
-                                            </tr>
+                                        <tr>
+                                            <td>Price</td>
+                                            <td>1BTC = 1000 BNB</td>
+                                        </tr>
 
-                                            <tr>
-                                                <td>Soft Cap</td>
-                                                <td>250 BNB</td>
-                                            </tr>
+                                        <tr>
+                                            <td>Soft Cap</td>
+                                            <td>250 BNB</td>
+                                        </tr>
 
-                                            <tr>
-                                                <td>Hard Cap</td>
-                                                <td>2500 BNB</td>
-                                            </tr>
+                                        <tr>
+                                            <td>Hard Cap</td>
+                                            <td>2500 BNB</td>
+                                        </tr>
 
-                                            <tr>
-                                                <td>End Time</td>
-                                                <td>2025-10-25</td>
-                                            </tr>
+                                        <tr>
+                                            <td>End Time</td>
+                                            <td>2025-10-25</td>
+                                        </tr>
 
                                         </tbody>
                                     </table>
@@ -127,11 +157,57 @@ const SingleLaunchpad: NextPageWithLayout = () => {
                                     <p>
                                         How many token will you get?
                                     </p>
-                                    <form action="#">
-                                        <input type="text" placeholder="Player ID *" required/>
-                                        <input type="email" placeholder="Email *" required/>
-                                        <button className="tournament__details-form-btn">Buy Token</button>
-                                    </form>
+
+                                    <Formik
+                                        enableReinitialize={true}
+                                        initialValues={{
+                                            coinValue: ''
+                                        }}
+                                        validationSchema={formSchema}
+                                        onSubmit={async (values: FormValues, submitProps: FormikHelpers<FormValues>) => {
+                                            await handleFormSubmit(values, submitProps);
+                                        }}>
+
+                                        {({errors, touched}) => (
+                                            <Form>
+
+                                                <div className="form-grp">
+                                                    <label htmlFor="launchpad-contract">
+                                                        Amount of Coin You Pay
+                                                    </label>
+
+                                                    <Field type="text"
+                                                           name="coinValue"
+                                                           className="mt-2"
+                                                           placeholder="Coin Value"
+                                                    />
+
+                                                    <p className="mt-3 text-danger">
+                                                        {
+                                                            errors.coinValue && touched.coinValue ?
+                                                                errors.coinValue
+                                                                :
+                                                                null
+                                                        }
+                                                    </p>
+                                                </div>
+
+                                                <div className="form-grp mt-4">
+                                                    <label htmlFor="launchpad-contract">
+                                                        Amount of Token You Receive
+                                                    </label>
+                                                    <input type="email"
+                                                           placeholder="Token Value"
+                                                           className="mt-2"
+                                                           disabled={true}/>
+                                                </div>
+
+                                                <button className="tournament__details-form-btn">Buy Token</button>
+
+                                            </Form>
+                                        )}
+                                    </Formik>
+
                                 </div>
 
 
@@ -262,7 +338,7 @@ const SingleLaunchpad: NextPageWithLayout = () => {
 
                                 <div className="shop__widget">
                                     <h4 className="shop__widget-title">ADVERTISEMENT</h4>
-                                    <div  className="shop__widget-inner">
+                                    <div className="shop__widget-inner">
                                         <div className="tournament__advertisement">
                                             <a href="#"><img src="assets/img/others/tournament_ad.jpg" alt="img"/></a>
                                         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from "next/head";
 import {appName} from "@/helpers/appStrings";
+import CustomHeader from "@/components/shared/CustomHeader";
 
 type PropsType = {
     title: string;
@@ -15,6 +16,8 @@ const CustomHead: React.FC<PropsType> = (props: PropsType) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+
+            <CustomHeader/>
         </>
     )
 }

@@ -7,10 +7,6 @@ function MainLayout({children}: any) {
     return (
         <React.Fragment>
 
-            <CustomHeader/>
-
-            <appkit-button />
-
             {children}
 
             <CustomFooter/>
