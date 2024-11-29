@@ -16,6 +16,7 @@ npx hardhat ignition deploy ./ignition/modules/Lock.ts
 After installing 'hardhat-deploy' and creating deploy folder:
 ```shell
 npx hardhat --network bsc deploy
+npx hardhat --network bscTestNet deploy
 npx hardhat --network fantom deploy
 ```
 

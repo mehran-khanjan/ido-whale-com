@@ -5,7 +5,16 @@ import '@nomicfoundation/hardhat-toolbox';
 import 'hardhat-deploy';
 
 const config: HardhatUserConfig = {
-    solidity: '0.8.26',
+    solidity: {
+        version: "0.8.26",
+        settings: {
+            viaIR: true,
+            optimizer: {
+                enabled: true,
+                runs: 200,
+            },
+        }
+    },
     networks: {
         bsc: {
             chainId: 56,

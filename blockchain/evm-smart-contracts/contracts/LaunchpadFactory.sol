@@ -8,6 +8,7 @@ import "./Launchpad.sol";
 
 contract LaunchpadFactory is Ownable, ReentrancyGuard {
     uint256 public costFee;
+
     // bool public whitelistEnforced;
     mapping(address => bool) public whitelistedOperators;
 
@@ -33,6 +34,10 @@ contract LaunchpadFactory is Ownable, ReentrancyGuard {
         // }
 
         require(msg.value == costFee, "Please pay cost fee");
+
+        (bool sent,) = owner().call{value: msg.value}('');
+        require(sent, "Failed to send FTM");
+        emit Withdraw(owner(), msg.value);
 
         Launchpad launchpad = new Launchpad(_launchpadTitle);
         launchpad.transferOwnership(_msgSender());
@@ -66,22 +71,22 @@ contract LaunchpadFactory is Ownable, ReentrancyGuard {
         return _newCostFee;
     }
 
-    function withdraw() external onlyOwner returns (uint256) {
-        uint256 contractBalance = address(this).balance;
-
-        if (contractBalance > 0) {
-            (bool sent,) = msg.sender.call{value: contractBalance}('');
-            require(sent, "Failed to send FTM");
-
-            emit Withdraw(msg.sender, contractBalance);
-            return contractBalance;
-        } else {
-            return 0;
-        }
-    }
-
-    function balance() external view returns (uint256) {
-        return address(this).balance;
-    }
+//    function withdraw() external onlyOwner returns (uint256) {
+//        uint256 contractBalance = address(this).balance;
+//
+//        if (contractBalance > 0) {
+//            (bool sent,) = msg.sender.call{value: contractBalance}('');
+//            require(sent, "Failed to send FTM");
+//
+//            emit Withdraw(msg.sender, contractBalance);
+//            return contractBalance;
+//        } else {
+//            return 0;
+//        }
+//    }
+//
+//    function balance() external view returns (uint256) {
+//        return address(this).balance;
+//    }
 }
 
