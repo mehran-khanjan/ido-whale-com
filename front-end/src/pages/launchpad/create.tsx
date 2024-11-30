@@ -18,6 +18,8 @@ const LaunchpadCreate: NextPageWithLayout = () => {
 
             <CreateLaunchpadFormStepOne/>
 
+            {/*step two is getting approval from token contract address for launchpad contract*/}
+
             <CreateLaunchpadFormStepTwo/>
 
         </>

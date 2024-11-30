@@ -18,7 +18,7 @@ const config = createConfig(
         // },
 
         // Required API Keys
-        // walletConnectProjectId: '1',
+        walletConnectProjectId: '1',
 
         // Required App Info
         appName: "Your App Name",
@@ -32,11 +32,11 @@ const config = createConfig(
 
 const queryClient = new QueryClient();
 
-export const Web3Provider = ({ children }) => {
+export const Web3Provider = (props: any) => {
     return (
-        <WagmiProvider config={config}>
+        <WagmiProvider config={config as any}>
             <QueryClientProvider client={queryClient}>
-                <ConnectKitProvider>{children}</ConnectKitProvider>
+                <ConnectKitProvider>{props.children}</ConnectKitProvider>
             </QueryClientProvider>
         </WagmiProvider>
     );

@@ -6,7 +6,7 @@ import Link from "next/link";
 const CustomHeader: React.FC = () => {
     const [mobileMenu, setMobileMenu] = useState('');
 
-    const handleMobileMenuClick = (e: any) => {
+    const handleMobileMenuClick = () => {
         if (mobileMenu === '') {
             setMobileMenu('mobile-menu-visible');
         } else if (mobileMenu === 'mobile-menu-visible') {

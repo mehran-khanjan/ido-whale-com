@@ -9,9 +9,6 @@ import "./Launchpad.sol";
 contract LaunchpadFactory is Ownable, ReentrancyGuard {
     uint256 public costFee;
 
-    // bool public whitelistEnforced;
-    mapping(address => bool) public whitelistedOperators;
-
     // owner => launchpads[]
     mapping(address => address[]) public launchpads;
 
@@ -28,20 +25,21 @@ contract LaunchpadFactory is Ownable, ReentrancyGuard {
         costFee = _costFee;
     }
 
-    function launch(string memory _launchpadTitle) external payable returns (Launchpad) {
-        // if(whitelistEnforced){
-        //     require(whitelistedOperators[_msgSender()], "FACTORY: OPERATOR NOT WHITELISTED");
-        // }
+    function launch(string memory _launchpadTitle) external payable nonReentrant returns (Launchpad) {
 
+        // check for payment
         require(msg.value == costFee, "Please pay cost fee");
 
+        // send fee to owner
         (bool sent,) = owner().call{value: msg.value}('');
-        require(sent, "Failed to send FTM");
+        require(sent, "Failed to send coin");
         emit Withdraw(owner(), msg.value);
 
+        // create new launchpad
         Launchpad launchpad = new Launchpad(_launchpadTitle);
         launchpad.transferOwnership(_msgSender());
 
+        // add launchpad address
         address launchpadAddress = address(launchpad);
         launchpads[_msgSender()].push(launchpadAddress);
         operator[launchpadAddress] = _msgSender();
@@ -55,38 +53,9 @@ contract LaunchpadFactory is Ownable, ReentrancyGuard {
         return launchpads[_user].length;
     }
 
-    // function toggleListEnforcement(bool _state) external onlyOwner {
-    //     whitelistEnforced = _state;
-    // }
-
-    // function modWhiteList(address[] calldata _whiteList, bool _state) external onlyOwner {
-    //     for (uint256 i = 0; i < _whiteList.length; ++i) {
-    //         whitelistedOperators[_whiteList[i]] = _state;
-    //     }
-    // }
-
     function setCostFee(uint256 _newCostFee) external onlyOwner returns (uint256) {
         costFee = _newCostFee;
-
         return _newCostFee;
     }
-
-//    function withdraw() external onlyOwner returns (uint256) {
-//        uint256 contractBalance = address(this).balance;
-//
-//        if (contractBalance > 0) {
-//            (bool sent,) = msg.sender.call{value: contractBalance}('');
-//            require(sent, "Failed to send FTM");
-//
-//            emit Withdraw(msg.sender, contractBalance);
-//            return contractBalance;
-//        } else {
-//            return 0;
-//        }
-//    }
-//
-//    function balance() external view returns (uint256) {
-//        return address(this).balance;
-//    }
 }
 

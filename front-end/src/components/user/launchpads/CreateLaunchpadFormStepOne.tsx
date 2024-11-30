@@ -36,13 +36,17 @@ const CreateLaunchpadFormStepOne: React.FC = () => {
     const handleFormSubmit = (v: FormValues, s: FormikHelpers<FormValues>) => {
         console.log('v', v.launchpadTitle);
 
-        writeContract({
-            address: process.env.NEXT_PUBLIC_FACTORY_CONTRACT_BSC_TESTNET,
-            abi,
-            functionName: 'launch',
-            args: [v.launchpadTitle],
-            value: parseEther('1')
-        })
+        if (process.env.NEXT_PUBLIC_FACTORY_CONTRACT_BSC_TESTNET) {
+            writeContract({
+                address: process.env.NEXT_PUBLIC_FACTORY_CONTRACT_BSC_TESTNET as any,
+                abi,
+                functionName: 'launch',
+                args: [v.launchpadTitle],
+                value: parseEther('1')
+            })
+        } else {
+            // show error
+        }
     }
 
     return (

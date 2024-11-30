@@ -75,29 +75,33 @@ const CreateLaunchpadFormStepTwo: React.FC = () => {
     const handleFormSubmit = (v: FormValues, s: FormikHelpers<FormValues>) => {
         console.log('v', v);
 
-        writeContract({
-            address: process.env.NEXT_PUBLIC_FACTORY_CONTRACT_BSC_TESTNET,
-            abi,
-            functionName: 'createPool',
-            args: [
-                v.poolTitle,
-                parseEther(`${v.softCap}`),
-                // parseEther(`${v.hardCap}`),
-                parseUnits(`${v.tokenPrice}`, 0),
-                parseEther(`${v.maxContribution}`),
-                // parseEther(`${v.minContribution}`),
-                v.tokenContract,
-                (v.isWhitelistedEnabled === 'checked'),
-                // remove these lines
-                '0x80aC2F3804E595711a9bC371b5B713c5B3817e40',
-                // remove these lines
-                1,
-                v.startTime,
-                // remove these lines
-                1
-            ],
-            value: parseEther('1')
-        })
+        if (process.env.NEXT_PUBLIC_FACTORY_CONTRACT_BSC_TESTNET) {
+            writeContract({
+                address: process.env.NEXT_PUBLIC_FACTORY_CONTRACT_BSC_TESTNET as any,
+                abi,
+                functionName: 'createPool',
+                args: [
+                    v.poolTitle,
+                    parseEther(`${v.softCap}`),
+                    // parseEther(`${v.hardCap}`),
+                    parseUnits(`${v.tokenPrice}`, 0),
+                    parseEther(`${v.maxContribution}`),
+                    // parseEther(`${v.minContribution}`),
+                    v.tokenContract,
+                    (v.isWhitelistedEnabled === 'checked'),
+                    // remove these lines
+                    '0x80aC2F3804E595711a9bC371b5B713c5B3817e40',
+                    // remove these lines
+                    1,
+                    v.startTime,
+                    // remove these lines
+                    1
+                ],
+                value: parseEther('1')
+            })
+        } else {
+            // show error
+        }
     }
 
     return (

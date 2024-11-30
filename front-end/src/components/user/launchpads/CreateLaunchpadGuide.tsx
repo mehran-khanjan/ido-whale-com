@@ -116,7 +116,7 @@ const CreateLaunchpadGuide: React.FC = () => {
                                             </div>
                                             <div className="tournament__list-live">
                                                 <a href="https://www.twitch.tv/videos/1726788358" target="_blank">Live
-                                                    now <i class="far fa-play-circle"></i></a>
+                                                    now <i className="far fa-play-circle"></i></a>
                                             </div>
                                         </div>
                                     </div>
